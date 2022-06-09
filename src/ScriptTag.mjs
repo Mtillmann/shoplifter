@@ -23,8 +23,6 @@ export class ScriptTag extends Remote {
             args.splice(1,0,'auto');
         }
 
-        console.log(args);
-
         return await this.createOrUpdate(...args);
     }
 
