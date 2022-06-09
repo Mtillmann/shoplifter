@@ -42,7 +42,7 @@ API_VERSION=2022-04
 
 ## CLI
 
-After installing (`npm i ... --save`) the package, add a new command to **your project's package.json**:
+After installing (`npm i Mtillmann/shoplifter --save`) the package, add a new command to **your project's package.json**:
 
 ```json5
 {
@@ -86,7 +86,7 @@ npm rum upload-some-asset
 Import the class you need, then call the class' methods with the same signature as the CLI arguments (see below):
 
 ```ecmascript 6
-import {Asset} from '???';
+import {Asset} from 'shoplifter';
 
 //assuming you have properly set the env vars (see above)
 
