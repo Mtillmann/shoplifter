@@ -3,9 +3,9 @@
 This helper is intended to work with cli scripts that manage `assets` and `script_tags` of a shopify instance and its
 theme.
 
-## Prerequisites
+# Prerequisites
 
-### Tokens and Credentials
+## Tokens and Credentials
 
 You'll need a `SHOPIFY_ACCESS_TOKEN` from your shopify instance. This can be acquired by creating an app inside shopify,
 then _to be further described here.._.
@@ -22,7 +22,7 @@ The `THEME_ID` can be found in the URL when you manage or view the theme setting
 The latest `API_VERSION` can be looked up in the shopify documentation, although _2022_04_ is a safe default since
 that's what this client is built on.
 
-### env vars
+## env vars
 
 The credentials are passed as environment variables. During your build process you should pass them as repository
 secrets (GitHub) or something similar.
@@ -38,9 +38,9 @@ API_VERSION=2022-04
 
 > Make sure to `echo .env >> .gitignore`
 
-## Usage
+# Usage
 
-### CLI
+## CLI
 
 After installing (`npm i ... --save`) the package, add a new command to **your project's package.json**:
 
@@ -81,7 +81,7 @@ Calling the script requires no further arguments and inside the script definitio
 npm rum upload-some-asset
 ```
 
-### Programmatic
+## Programmatic
 
 Import the class you need, then call the class' methods with the same signature as the CLI arguments (see below):
 
@@ -117,15 +117,15 @@ asset.API_VERSION = '...';
 // then proceed as usual
 ```
 
-## API
+# API
 
-### Asset
+## Asset
 
 > Assets are files inside themes.
 
 > the THEME_ID env var controls inside which theme the files are manipulated
 
-#### `asset:put` / `new Asset().put()`
+### `asset:put` / `new Asset().put()`
 
 Creates or updates an `asset` on the remote.
 
@@ -142,7 +142,7 @@ npm run shoplifter -- asset:put assets/some-script.js dist/some-script.js
 new Asset().put('assets/some-script.js', 'dist/some-script.js');
 ```
 
-#### `asset:get` / `new Asset().get()`
+### `asset:get` / `new Asset().get()`
 
 Fetches a list or `assets` or single `asset` when key (filename) is given.
 
@@ -166,7 +166,7 @@ npm run shoplifter -- asset:get assets/some-script.js
 new Asset().get('assets/some-script.js');
 ```
 
-#### `asset:delete` / `new Asset().delete()`
+### `asset:delete` / `new Asset().delete()`
 
 Deletes an `asset` on the remote by given filename.
 
@@ -182,7 +182,7 @@ npm run shoplifter -- asset:delete assets/some-script.js
 new Asset().delete('assets/some-script.js');
 ```
 
-### ScriptTag
+## ScriptTag
 
 > changes on script_tags may take several seconds until they appear in the frontend
 
@@ -190,7 +190,9 @@ new Asset().delete('assets/some-script.js');
 
 > internally `put` and `post` use the same `upsert` method
 
-#### `tag:get` / `new ScriptTag().get()`
+> after an asset update you must also update (put) an existing script_tag because the public url of the asset will have changed!
+
+### `tag:get` / `new ScriptTag().get()`
 
 | argument      | description                                                        |
 |---------------|--------------------------------------------------------------------|
@@ -212,7 +214,7 @@ npm run shoplifter -- tag:get 123456789
 new ScriptTag.get(123456789);
 ```
 
-#### `tag:post` / `new ScriptTag().post()`
+### `tag:post` / `new ScriptTag().post()`
 
 Creates a new `script_tag`.
 
@@ -231,7 +233,7 @@ npm run shoplifter -- tag:post assets/some-script.js
 new ScriptTag().post('assets/some-script.js'/*, ... */);
 ```
 
-#### `tag:put` / `new ScriptTag().put()`
+### `tag:put` / `new ScriptTag().put()`
 
 Updates an existing `script_tag`.
 
@@ -252,7 +254,7 @@ new ScriptTag().put('assets/some-script.js', 123455678/*, ... */);
 new ScriptTag().put('assets/some-script.js', 'auto'/*, ... */);
 ```
 
-#### `tag:count` / `new ScriptTag().count()`
+### `tag:count` / `new ScriptTag().count()`
 
 Fetches `script_tag`-count from remote.
 
@@ -264,7 +266,7 @@ npm run shoplifter -- tag:count
 new ScriptTag().count();
 ```
 
-#### `tag:delete` / `new ScriptTag().delete()`
+### `tag:delete` / `new ScriptTag().delete()`
 
 Deletes a `script_tag` by given `id`.
 
@@ -276,7 +278,7 @@ npm run shoplifter -- tag:delete 12345678812
 new ScriptTag().delete(1234567232);
 ```
 
-#### `tag:deleteforfile` / `new ScriptTag().deleteforfile()`
+### `tag:deleteforfile` / `new ScriptTag().deleteforfile()`
 
 Deletes a `script_tag` for a given filename that's matched inside the remote `script_tag`'s `src`-attr. Use with caution.
 
@@ -288,7 +290,7 @@ npm run shoplifter -- tag:deleteforfile assets/some-script.js
 new ScriptTag().deleteforfile("assets/some-script.js");
 ```
 
-#### `tag:find` / `new ScriptTag().find()`
+### `tag:find` / `new ScriptTag().find()`
 
 Finds a list of `script_tag`s by given filename`.
 
@@ -300,7 +302,7 @@ npm run shoplifter -- tag:find assets/some-script.js
 new ScriptTag().find("assets/some-script.js");
 ```
 
-#### `tag:findid` / `new ScriptTag().findid()`
+### `tag:findid` / `new ScriptTag().findid()`
 
 Yields the id of first remote `script_tag` whose `src`-attr matches given filename. Primarily used internally...
 
