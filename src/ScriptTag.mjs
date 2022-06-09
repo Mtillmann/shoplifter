@@ -9,11 +9,23 @@ export class ScriptTag extends Remote {
     }
 
     async post(...args) {
-        return await this.upsert(...args);
+        return await this.createOrUpdate(...args);
     }
 
     async put(...args) {
-        return await this.upsert(...args);
+        return await this.createOrUpdate(...args);
+    }
+
+    async upsert(...args) {
+        if(args.length > 1 && /^auto$|^\d{10,}$/.test(args[1])){
+            args[1] = 'auto';
+        }else{
+            args.splice(1,0,'auto');
+        }
+
+        console.log(args);
+
+        return await this.createOrUpdate(...args);
     }
 
     async find(filename) {
@@ -31,7 +43,7 @@ export class ScriptTag extends Remote {
         throw new Error(`no existing script tag for ${filename} found :(`);
     }
 
-    async upsert(...args) {
+    async createOrUpdate(...args) {
         let file = args.shift(),
             method = /^auto$|^\d{10,}$/.test(args[0]) ? 'PUT' : 'POST',
             id = method === 'PUT' ? args.shift() : null,

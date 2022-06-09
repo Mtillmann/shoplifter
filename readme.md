@@ -188,8 +188,6 @@ new Asset().delete('assets/some-script.js');
 
 > script_tags exist outside of themes. All `src`-properties passed must be publicly accessible
 
-> internally `put` and `post` use the same `upsert` method
-
 > after an asset update you must also update (put) an existing script_tag because the public url of the asset will have changed!
 
 ### `tag:get` / `new ScriptTag().get()`
@@ -253,6 +251,25 @@ npm run shoplifter -- tag:put assets/some-script.js auto
 new ScriptTag().put('assets/some-script.js', 123455678/*, ... */);
 new ScriptTag().put('assets/some-script.js', 'auto'/*, ... */);
 ```
+
+### `tag:upsert` / `new ScriptTag().upsert()`
+
+Updates or creates a `script_tag` for the given asset.
+
+| argument | description                                                                                                            |
+|----------|------------------------------------------------------------------------------------------------------------------------|
+| src      | see above in `post`                                                                                                    |
+
+optional arguments are identical to the post method's arguments.
+
+```shell
+npm run shoplifter -- tag:upsert assets/some-script.js
+```
+
+```ecmascript 6
+new ScriptTag().upsert('assets/some-script.js'/*, ... */);
+```
+
 
 ### `tag:count` / `new ScriptTag().count()`
 
