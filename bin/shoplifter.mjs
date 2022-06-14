@@ -11,8 +11,10 @@ let args = process.argv.slice(2),
     method = command[1];
 
 if(type === 'asset'){
-    new Asset(console.log)[method](...args);
+    //new Asset(console.log)[method](...args);
+    new Asset()[method](...args);
 }
 else if(type === 'tag'){
-    new ScriptTag(console.log)[method](...args);
+    //new ScriptTag(console.log)[method](...args);
+    new ScriptTag()[method](...args);
 }
